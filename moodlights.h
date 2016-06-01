@@ -20,13 +20,14 @@
 #include "data.h"
 
 #define MOODLIGHTS_LAMPS 10
+#define MOODLIGHT_DEFAULT_IDENTIFIER 0x10
 
 class Moodlights {
 public:
     // Format: R:G:B
     using Color = std::array<Byte, 3>;
 
-    Moodlights(const Byte src, const Byte dst);
+    Moodlights(const Byte src, const Byte dst = MOODLIGHT_DEFAULT_IDENTIFIER);
     ~Moodlights();
 
     static Color rand_color();
