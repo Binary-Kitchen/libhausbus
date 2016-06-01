@@ -13,6 +13,8 @@
 #pragma once
 
 #include <array>
+#include <experimental/optional>
+#include <regex>
 
 #include "hausbus.h"
 #include "data.h"
@@ -28,6 +30,8 @@ public:
     ~Moodlights();
 
     static Color rand_color();
+    static std::experimental::optional<Color> parse_color(const std::string &str);
+    static std::string color_to_string(const Color &color);
 
     void set(unsigned int no, const Color &c);
     void set_all(const Color &c);
@@ -49,4 +53,6 @@ private:
     const Byte _dst;
 
     std::array<Color, MOODLIGHTS_LAMPS> _lamps;
+
+    const static std::regex _color_regex;
 };

@@ -16,6 +16,8 @@
 
 #define rand_byte() ((Byte)::rand())
 
+const std::regex Moodlights::_color_regex("#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})");
+
 Moodlights::Moodlights(const Byte src, const Byte dst) :
     _src(src),
     _dst(dst)
@@ -30,6 +32,31 @@ Moodlights::~Moodlights()
 Moodlights::Color Moodlights::rand_color()
 {
     return Color {rand_byte(), rand_byte(), rand_byte()};
+}
+
+std::experimental::optional<Moodlights::Color> Moodlights::parse_color(const std::string &str)
+{
+    std::smatch sm;
+    Color retval;
+    if (!std::regex_match(str, sm, _color_regex))
+        return std::experimental::optional<Color>();
+
+    auto fromHex = [] (const std::string hex) -> Byte {
+        return (Byte)strtoul(hex.c_str(), nullptr, 16);
+    };
+
+    retval[0] = fromHex(sm[1]);
+    retval[1] = fromHex(sm[2]);
+    retval[2] = fromHex(sm[3]);
+
+    return std::experimental::optional<Color>(retval);
+}
+
+std::string Moodlights::color_to_string(const Color &color)
+{
+    char retval[7];
+    snprintf(retval, 7, "%02X%02X%02X", color[0], color[1], color[2]);
+    return retval;
 }
 
 void Moodlights::set(unsigned int no, const Color &c)
