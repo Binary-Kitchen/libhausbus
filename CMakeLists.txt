@@ -1,6 +1,6 @@
 project(libhausbus)
 
-add_definitions(-std=c++11)
+add_definitions(-std=c++1y)
 
 set(LIBHAUSBUS_HEADERS
 	crc8.h
