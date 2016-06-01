@@ -1,4 +1,4 @@
-project(moodlights_mqtt)
+project(libhausbus)
 
 add_definitions(-std=c++11)
 
