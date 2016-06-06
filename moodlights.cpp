@@ -119,4 +119,5 @@ void Moodlights::blank_all()
 Hausbus &operator <<(Hausbus &h, const Moodlights &m)
 {
     h.send(m._src, m._dst, m.get_payload());
+    return h;
 }
