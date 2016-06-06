@@ -39,7 +39,7 @@ Hausbus::Hausbus(const std::string &device_filename,
         throw_errno(_device_filename);
 
     // Set baudrate
-    memset (&tty, 0, sizeof tty);
+    memset(&tty, 0, sizeof tty);
     if (tcgetattr (_fd_serial, &tty) != 0)
         throw_errno(_device_filename);
 
