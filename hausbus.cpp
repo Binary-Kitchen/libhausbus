@@ -43,8 +43,10 @@ Hausbus::Hausbus(const std::string &device_filename,
     if (tcgetattr (_fd_serial, &tty) != 0)
         throw_errno(_device_filename);
 
-    cfsetospeed (&tty, speed);
-    cfsetispeed (&tty, speed);
+    if (cfsetospeed (&tty, speed))
+        throw_errno(_device_filename);
+    if (cfsetispeed(&tty, speed))
+        throw_errno(_device_filename);
 
     tty.c_cflag = (tty.c_cflag & ~CSIZE) | CS8;
     tty.c_iflag &= ~IGNBRK;
