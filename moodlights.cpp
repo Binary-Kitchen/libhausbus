@@ -61,7 +61,7 @@ std::string Moodlights::color_to_string(const Color &color)
 
 void Moodlights::set(unsigned int no, const Color &c)
 {
-    if (no > MOODLIGHTS_LAMPS)
+    if (no >= MOODLIGHTS_LAMPS)
         throw std::runtime_error("Invalid lamp");
 
     _lamps[no] = c;
