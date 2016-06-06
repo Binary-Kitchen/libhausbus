@@ -14,18 +14,20 @@
 
 #include <string>
 
+#include <termios.h>
+
 #include "data.h"
 
 #define HAUSBUS_PREAMBLE 0x40
 #define HAUSBUS_MAX_PACKET_LENGTH 64
-#define HAUSBUS_BAUDRATE 115200
+#define HAUSBUS_BAUDRATE B115200
 
 class Hausbus {
 
 public:
 
     Hausbus(const std::string &device_filename,
-            const int speed = HAUSBUS_BAUDRATE,
+            const speed_t speed = HAUSBUS_BAUDRATE,
             const Byte preamble = HAUSBUS_PREAMBLE);
     ~Hausbus();
 

@@ -26,7 +26,7 @@
 #define throw_errno(x) throw std::system_error(errno, std::system_category(), x)
 
 Hausbus::Hausbus(const std::string &device_filename,
-                 const int speed,
+                 const speed_t speed,
                  const Byte preamble) :
    _device_filename(device_filename),
    _preamble(preamble)
