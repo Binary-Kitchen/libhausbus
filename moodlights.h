@@ -55,5 +55,6 @@ private:
 
     std::array<Color, MOODLIGHTS_LAMPS> _lamps;
 
+    const static Byte _gamma_correction[256];
     const static std::regex _color_regex;
 };
