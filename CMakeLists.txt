@@ -1,21 +1,30 @@
-cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 option(LIBHAUSBUS_CMAKE_DEBUG "Set to on for some Debug output" Off)
 
-set(LIBHAUSBUS_VERSION_MAJOR 1)
-set(LIBHAUSBUS_VERSION_MINOR 0)
+set(LIBHAUSBUS_VERSION_MAJOR 0)
+set(LIBHAUSBUS_VERSION_MINOR 1)
 set(LIBHAUSBUS_VERSION_PATCH 0)
 
 set(LIBHAUSBUS_VERSION "${LIBHAUSBUS_VERSION_MAJOR}.${LIBHAUSBUS_VERSION_MINOR}.${LIBHAUSBUS_VERSION_PATCH}")
 
-project(libhausbus  VERSION ${LIBHAUSBUS_VERSION} LANGUAGES CXX)
+# CMP0048 check if policy is present
+if(POLICY CMP0048)
+    cmake_policy(SET CMP0048 NEW)
+    project(libhausbus VERSION ${LIBHAUSBUS_VERSION} LANGUAGES CXX)
+else()
+    project(libhausbus CXX)
+endif()
+
 
 if(LIBHAUSBUS_CMAKE_DEBUG)
     message(STATUS "[${CMAKE_CURRENT_LIST_DIR}:${CMAKE_CURRENT_LIST_LINE}] "
-            "doorlockd version: ${LIBHAUSBUS_VERSION}")
+            "libhausbus version: ${LIBHAUSBUS_VERSION}")
 endif()
 
 add_definitions(-std=c++1y)
+
+# ====================== build stuff ===========================================
 
 set(LIBHAUSBUS_HDRS
         include/crc8.h
@@ -28,11 +37,14 @@ set(LIBHAUSBUS_SRCS
         hausbus.cpp
         moodlights.cpp)
 
-add_library(hausbus STATIC ${LIBHAUSBUS_SRCS})
+add_library(hausbus ${LIBHAUSBUS_SRCS})
 
 set_target_properties(hausbus PROPERTIES PUBLIC_HEADER "${LIBHAUSBUS_HDRS}")
 target_include_directories(hausbus PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+
+
+# ====================== install stuff =========================================
 
 install(TARGETS hausbus
         ARCHIVE  DESTINATION lib
