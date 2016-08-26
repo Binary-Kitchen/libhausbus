@@ -26,23 +26,26 @@ add_definitions(-std=c++1y)
 
 # ====================== build stuff ===========================================
 
-set(LIBHAUSBUS_HDRS
+set(_LIBHAUSBUS_HDRS
         include/crc8.h
         include/data.h
         include/hausbus.h
         include/moodlights.h)
 
-set(LIBHAUSBUS_SRCS
+set(_LIBHAUSBUS_SRCS
         src/crc8.cpp
         src/hausbus.cpp
         src/moodlights.cpp)
 
-add_library(hausbus ${LIBHAUSBUS_SRCS})
+add_library(hausbus ${_LIBHAUSBUS_SRCS})
 
-set_target_properties(hausbus PROPERTIES PUBLIC_HEADER "${LIBHAUSBUS_HDRS}")
+set_target_properties(hausbus PROPERTIES PUBLIC_HEADER "${_LIBHAUSBUS_HDRS}")
 target_include_directories(hausbus PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
+mark_as_advanced(
+        _LIBHAUSBUS_HDRS
+        _LIBHAUSBUS_SRCS)
 
 # ====================== install stuff =========================================
 
