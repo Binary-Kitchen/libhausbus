@@ -33,9 +33,9 @@ set(LIBHAUSBUS_HDRS
         include/moodlights.h)
 
 set(LIBHAUSBUS_SRCS
-        crc8.cpp
-        hausbus.cpp
-        moodlights.cpp)
+        src/crc8.cpp
+        src/hausbus.cpp
+        src/moodlights.cpp)
 
 add_library(hausbus ${LIBHAUSBUS_SRCS})
 
