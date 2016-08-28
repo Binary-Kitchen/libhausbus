@@ -57,7 +57,7 @@ include(${CMAKE_CURRENT_LIST_DIR}/vendor/CMakeTemplates/CMakeConfigTemplate.cmak
 add_cmake_config_files(${_${PROJECT_NAME}_VERSION} hausbus)
 
 # ====================== install stuff =========================================
-include(${CMAKE_CURRENT_LIST_DIR}/vendor/CMakeTemplates/CMakeInstallAndPackageTemplate.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/vendor/CMakeTemplates/CMakeInstallTemplate.cmake)
 install_target(hausbus "${_HAUSBUS_HDRS}")
 install_config_file()
 
