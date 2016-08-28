@@ -1,0 +1,3 @@
+[submodule "vendor/CMakeTemplates"]
+	path = vendor/CMakeTemplates
+	url = https://github.com/AndreasAugustin/CMakeTemplates
