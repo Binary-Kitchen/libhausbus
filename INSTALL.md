@@ -1,6 +1,17 @@
 INSTALL.md
 ==========
 
+# Git sub module
+
+```bash
+
+$ git submodule init
+$ git submodule update
+
+```
+
+# Cmake
+
 ```bash
 
 $ mkdir build
