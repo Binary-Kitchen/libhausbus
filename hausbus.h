@@ -56,6 +56,5 @@ private:
     const Byte _preamble;
     const std::string _device_filename;
 
-    int _fd_rs485_direction;
     int _fd_serial;
 };

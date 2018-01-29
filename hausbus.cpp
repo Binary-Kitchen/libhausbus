@@ -65,48 +65,22 @@ Hausbus::Hausbus(const std::string &device_filename,
     if (tcsetattr (_fd_serial, TCSANOW, &tty) != 0)
         throw_errno(_device_filename);
 
-    // Configure RS485 direction selector
-    try {
-        _write_sys("/sys/class/gpio/export", "18\n");
-    }
-    catch (const std::system_error &err) {
-        // EBUSY will be received if gpio is already exported
-        if (err.code().value() != EBUSY)
-            throw err;
-    }
-    _write_sys("/sys/class/gpio/gpio18/direction", "out\n");
-    _fd_rs485_direction = open("/sys/class/gpio/gpio18/value", O_WRONLY);
     _rs485_rx();
 }
 
 Hausbus::~Hausbus()
 {
-    _write_sys("/sys/class/gpio/unexport", "18\n");
-
-    if (_fd_rs485_direction == 0)
-        goto release_serial;
-
-    if (close(_fd_rs485_direction) != 0)
-        throw_errno("RS485 Direction GPIO");
-
-release_serial:
-    // Only close device if it is opened correctly
     if (_fd_serial == 0)
         return;
 
-    // Check return value of close()
     if (close(_fd_serial) != 0)
         throw_errno(_device_filename);
 }
 
 void Hausbus::_rs485_rx() {
-    if (write(_fd_rs485_direction, "0\n", 2) != 2)
-        throw_errno(_device_filename);
 }
 
 void Hausbus::_rs485_tx() {
-    if (write(_fd_rs485_direction, "1\n", 2) != 2)
-        throw_errno(_device_filename);
 }
 
 Data Hausbus::create_packet(const Byte src, const Byte dst, const Data &payload) const
